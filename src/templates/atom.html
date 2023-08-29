@@ -1,54 +1,309 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" x-data="{ menu: $persist(true).as('menu'), dark: $persist(false).as('dark') }" :class="dark && 'dark'">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Templates</title>
+    <link href="https://fonts.bunny.net/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS v3 Configuration -->
+    <script>
+        const defaultTheme = tailwind.defaultTheme;
+        const colors = tailwind.colors;
+        const plugin = tailwind.plugin;
+
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["Inter", ...defaultTheme.fontFamily.sans],
+                    },
+                    colors: {
+                        primary: colors.blue,
+                    }
+                },
+            },
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 
 <body>
     <div class="h-screen flex">
-        <div class="w-72 bg-gray-800">
-        </div>
-        <div class="flex-1 bg-gray-100">
-            <!-- Navbar -->
-            <div class="bg-white px-4 py-2.5 flex items-center justify-between">
-                <div
-                    class="w-1/3 px-4 py-1.5 flex items-center gap-x-2 bg-gray-200 rounded-lg ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 stroke-2 stroke-gray-500" viewBox="0 0 24 24"
+        <div x-cloak :class="menu ? 'w-3/4 md:w-72' : 'w-0 lg:w-72'"        
+            class="fixed lg:static z-10 h-full overflow-y-auto bg-white dark:bg-gray-900 border-r border-gray-300 dark:border-black/40">
+            <div class="p-4 flex justify-between items-center">
+                <h1 class="text-xl font-bold text-gray-800 dark:text-gray-200">Atom</h1>
+                <button @click="menu = !menu" type="button" class="lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6 stroke-2 stroke-gray-500 dark:stroke-gray-400" viewBox="0 0 24 24"
                         stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
-                        <path d="M21 21l-6 -6"></path>
+                        <path d="M4 6l16 0"></path>
+                        <path d="M4 12l16 0"></path>
+                        <path d="M4 18l16 0"></path>
                     </svg>
-                    <input type="text" placeholder="Search any keyword"
-                        class="text-sm text-gray-800 placeholder:text-gray-500 leading-6 flex-1 bg-transparent focus:outline-none">
-                    <button type="button" class="px-2 py-1 bg-white flex items-center rounded text-sm text-gray-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 stroke-2 stroke-gray-500"
+                </button>
+            </div>
+            <ul class="mt-4 space-y-1">
+                <li class="px-2">
+                    <a href="#"
+                        class="px-4 py-2 w-full text-sm text-primary-100 font-medium flex items-center gap-x-2 bg-primary-600 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-2 stroke-primary-100" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                            <path d="M10 12h4v4h-4z"></path>
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+            </ul>
+            <div class="mt-4">
+                <span class="px-2 text-xs text-gray-400 font-medium uppercase tracking-wide">Shop</span>
+                <ul class="mt-2 space-y-1">
+                    <li class="px-2">
+                        <a href="#"
+                            class="px-4 py-2 w-full text-sm text-gray-500 flex items-center gap-x-4 hover:bg-gray-200 rounded-md ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-2 stroke-gray-400" width="24"
+                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5"></path>
+                                <path d="M12 12l8 -4.5"></path>
+                                <path d="M12 12l0 9"></path>
+                                <path d="M12 12l-8 -4.5"></path>
+                            </svg>
+                            Products
+                        </a>
+                    </li>
+                    <li class="px-2">
+                        <a href="#"
+                            class="px-4 py-2 w-full text-sm text-gray-500 flex items-center gap-x-4 hover:bg-gray-200 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-2 stroke-gray-400" width="24"
+                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M13 5h8"></path>
+                                <path d="M13 9h5"></path>
+                                <path d="M13 15h8"></path>
+                                <path d="M13 19h5"></path>
+                                <path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z">
+                                </path>
+                                <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z">
+                                </path>
+                            </svg>
+                            Orders
+                        </a>
+                    </li>
+                    <li class="px-2">
+                        <a href="#"
+                            class="px-4 py-2 w-full text-sm text-gray-500 flex items-center gap-x-4 hover:bg-gray-200 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-2 stroke-gray-400" width="24"
+                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"></path>
+                                <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                <path d="M17 10h2a2 2 0 0 1 2 2v1"></path>
+                                <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                <path d="M3 13v-1a2 2 0 0 1 2 -2h2"></path>
+                            </svg>
+                            Customers
+                        </a>
+                    </li>
+                    <li class="px-2">
+                        <a href="#"
+                            class="px-4 py-2 w-full text-sm text-gray-500 flex items-center gap-x-4 hover:bg-gray-200 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-2 stroke-gray-400" width="24"
+                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M4 4h6v6h-6z"></path>
+                                <path d="M14 4h6v6h-6z"></path>
+                                <path d="M4 14h6v6h-6z"></path>
+                                <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                            </svg>
+                            Categories
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-4">
+                <span class="px-2 text-xs text-gray-400 font-medium uppercase tracking-wide">Shop</span>
+                <ul class="mt-2 space-y-1">
+                    <li class="px-2">
+                        <a href="#"
+                            class="px-4 py-2 w-full text-sm text-gray-500 flex items-center gap-x-4 hover:bg-gray-200 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-2 stroke-gray-400" width="24"
+                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5"></path>
+                                <path d="M12 12l8 -4.5"></path>
+                                <path d="M12 12l0 9"></path>
+                                <path d="M12 12l-8 -4.5"></path>
+                            </svg>
+                            Products
+                        </a>
+                    </li>
+                    <li class="px-2">
+                        <a href="#"
+                            class="px-4 py-2 w-full text-sm text-gray-500 flex items-center gap-x-4 hover:bg-gray-200 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-2 stroke-gray-400" width="24"
+                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M13 5h8"></path>
+                                <path d="M13 9h5"></path>
+                                <path d="M13 15h8"></path>
+                                <path d="M13 19h5"></path>
+                                <path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z">
+                                </path>
+                                <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z">
+                                </path>
+                            </svg>
+                            Orders
+                        </a>
+                    </li>
+                    <li class="px-2">
+                        <a href="#"
+                            class="px-4 py-2 w-full text-sm text-gray-500 flex items-center gap-x-4 hover:bg-gray-200 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-2 stroke-gray-400" width="24"
+                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"></path>
+                                <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                <path d="M17 10h2a2 2 0 0 1 2 2v1"></path>
+                                <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                <path d="M3 13v-1a2 2 0 0 1 2 -2h2"></path>
+                            </svg>
+                            Customers
+                        </a>
+                    </li>
+                    <li class="px-2">
+                        <a href="#"
+                            class="px-4 py-2 w-full text-sm text-gray-500 flex items-center gap-x-4 hover:bg-gray-200 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-2 stroke-gray-400" width="24"
+                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M4 4h6v6h-6z"></path>
+                                <path d="M14 4h6v6h-6z"></path>
+                                <path d="M4 14h6v6h-6z"></path>
+                                <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                            </svg>
+                            Categories
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="flex-1 flex flex-col bg-gray-200 dark:bg-gray-800 overflow-y-auto">
+            <!-- Navbar -->
+            <div class="bg-white px-4 py-2 flex items-center justify-between dark:bg-gray-900">
+                <div class="flex gap-x-4">
+                    <button @click="menu = true" type="button" class="lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6 stroke-2 stroke-gray-500 dark:stroke-gray-400" viewBox="0 0 24 24"
+                            stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M4 6l16 0"></path>
+                            <path d="M4 12l16 0"></path>
+                            <path d="M4 18l16 0"></path>
+                        </svg>
+                    </button>
+                    <div
+                        class="hidden px-4 py-1.5 md:flex items-center gap-x-2 bg-gray-200 rounded-lg focus-within:ring-2 focus-within:ring-primary-400 dark:bg-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4 stroke-2 stroke-gray-500 dark:stroke-gray-200" viewBox="0 0 24 24"
+                            stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                            <path d="M21 21l-6 -6"></path>
+                        </svg>
+                        <input type="text" placeholder="Search any keyword"
+                            class="text-sm text-gray-800 placeholder:text-gray-500 leading-6 flex-1 bg-transparent focus:outline-none dark:text-white dark:placeholder:text-gray-400">
+                        <button type="button"
+                            class="px-2 py-1 bg-white flex items-center rounded text-sm text-gray-500 dark:bg-gray-900 dark:text-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 stroke-2 stroke-gray-500 dark:stroke-gray-200" viewBox="0 0 24 24"
+                                stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path
+                                    d="M7 9a2 2 0 1 1 2 -2v10a2 2 0 1 1 -2 -2h10a2 2 0 1 1 -2 2v-10a2 2 0 1 1 2 2h-10">
+                                </path>
+                            </svg>
+                            F
+                        </button>
+                    </div>
+                    <button type="button" class="md:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-2 stroke-gray-500"
                             viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M7 9a2 2 0 1 1 2 -2v10a2 2 0 1 1 -2 -2h10a2 2 0 1 1 -2 2v-10a2 2 0 1 1 2 2h-10">
-                            </path>
+                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                            <path d="M21 21l-6 -6"></path>
                         </svg>
-                        F
                     </button>
                 </div>
-                <div class="flex items-center divide-x">
-                    <button type="button" class="px-4 py-1 hover:bg-gray-100">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-2 stroke-gray-500"
-                            viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path
-                                d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6">
-                            </path>
-                            <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
-                        </svg>
-                    </button>
+                <div class="flex items-center divide-x dark:divide-black/40">
+                    <div class="flex pr-4">
+                        <button type="button"
+                            class="px-2.5 py-2 group hover:bg-gray-200 rounded-lg dark:hover:bg-gray-800">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-6 h-6 stroke-2 stroke-gray-500 group-hover:stroke-gray-800 dark:stroke-gray-400 dark:group-hover:stroke-gray-200"
+                                viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path
+                                    d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6">
+                                </path>
+                                <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
+                            </svg>
+                        </button>
+                        <button @click="dark = !dark" type="button"
+                            class="px-2.5 py-2 group hover:bg-gray-200 rounded-lg dark:hover:bg-gray-800">
+                            <svg x-show="!dark" xmlns="http://www.w3.org/2000/svg"
+                                class="w-6 h-6 stroke-2 stroke-primary-600 group-hover:stroke-primary-500 dark:group-hover:stroke-primary-500"
+                                viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                <path d="M12 5l0 .01"></path>
+                                <path d="M17 7l0 .01"></path>
+                                <path d="M19 12l0 .01"></path>
+                                <path d="M17 17l0 .01"></path>
+                                <path d="M12 19l0 .01"></path>
+                                <path d="M7 17l0 .01"></path>
+                                <path d="M5 12l0 .01"></path>
+                                <path d="M7 7l0 .01"></path>
+                            </svg>
+                            <svg x-show="dark" xmlns="http://www.w3.org/2000/svg"
+                                class="w-6 h-6 stroke-2 stroke-primary-600 group-hover:stroke-primary-500 dark:group-hover:stroke-primary-500"
+                                viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path
+                                    d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
                     <div class="px-4 flex items-center gap-x-4">
                         <div class="p-1 bg-gray-800 rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-2 stroke-gray-200"
@@ -60,17 +315,24 @@
                                 <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"></path>
                             </svg>
                         </div>
-                        <div class="text-sm leading-5">
-                            <h4 class="text-gray-700 font-medium">Derol Hakim</h4>
-                            <span class="text-gray-500">Project Manager</span>
+                        <div class="hidden md:block text-sm leading-5">
+                            <h4 class="text-gray-700 font-medium dark:text-gray-300">Derol Hakim</h4>
+                            <span class="text-gray-500 dark:text-gray-400">Project Manager</span>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- End Navbar -->
             <!-- Start Content -->
-            <div class="p-4 bg-gray-100">
-
+            <div class="p-4 lg:p-6 xl:p-8 flex-1 container mx-auto">
+                <h2 class="text-lg lg:text-xl text-gray-800 font-semibold dark:text-white">Dashboard</h2>
+                <div class="mt-4 lg:mt-6 xl:mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="col-span-2 bg-white dark:bg-gray-600 h-44 rounded-md"></div>
+                    <div class="bg-white dark:bg-gray-600 h-44 rounded-md"></div>
+                    <div class="bg-white dark:bg-gray-600 h-44 rounded-md"></div>
+                    <div class="col-span-2 bg-white dark:bg-gray-600 h-44 rounded-md"></div>
+                    <div class="bg-white dark:bg-gray-600 h-44 rounded-md"></div>
+                </div>
             </div>
             <!-- End Content -->
         </div>
